@@ -1,0 +1,74 @@
+//python
+def solve():
+    n = int(input())
+    a = list(map(int, input().split()))
+    
+    result = []
+    for i in range(n):
+        if i == 0:
+            result.append(1)  # The first student is always happy
+        else:
+            happy = True
+            for j in range(i):
+                if a[i] <= a[j]:
+                    happy = False
+                    break
+            result.append(1 if happy else 0)
+    
+    print(*result)
+
+t = int(input())
+for _ in range(t):
+    solve()
+
+//c
+#include <stdio.h>
+#include <stdlib.h> // for malloc and free
+
+void solve() {
+    int n;
+    scanf("%d", &n);
+
+    int *a = (int *)malloc(n * sizeof(int)); // Dynamically allocate memory for the array
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &a[i]);
+    }
+
+    int *result = (int *)malloc(n * sizeof(int)); // Dynamically allocate memory for the result array
+
+    for (int i = 0; i < n; i++) {
+        if (i == 0) {
+            result[i] = 1; // First student is always happy
+        } else {
+            int happy = 1; // Assume happy initially
+            for (int j = 0; j < i; j++) {
+                if (a[i] <= a[j]) {
+                    happy = 0; // Not happy
+                    break;
+                }
+            }
+            result[i] = happy;
+        }
+    }
+
+    // Print the result
+    for (int i = 0; i < n; i++) {
+        printf("%d", result[i]);
+        if (i < n - 1) {
+            printf(" "); // Add space between numbers
+        }
+    }
+    printf("\n");
+
+    free(a);       // Free the dynamically allocated memory
+    free(result);  // Free the dynamically allocated memory
+}
+
+int main() {
+    int t;
+    scanf("%d", &t);
+    for (int i = 0; i < t; i++) {
+        solve();
+    }
+    return 0;
+}
